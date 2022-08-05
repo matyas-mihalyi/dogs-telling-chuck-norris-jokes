@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 
 export interface Dog {
   index: number,
+  breed?: string,
   message: string,
   status: string
 }
@@ -33,7 +34,7 @@ export class DogsService {
     const dogsToFetch: any = new Array(numberOfDogs).fill(this.fetchDog());
     let dogs: any = [];
     dogsToFetch.forEach((req: any, index:number) => {
-      req.subscribe((res: any) => dogs.push({...res, index}))      
+      req.subscribe((res: any) => dogs.push({...res, index, breed: this.getDogBreed(res)}))      
     });
     this.dogs$.next(dogs)
     console.log("These are the starting dogs:", this.dogs$.value)
@@ -45,15 +46,21 @@ export class DogsService {
       tap((newDog) => {
         console.log("The new dog is", newDog)
         this.dogs$.next(
-          this.dogs$.value.map((dog,i) => dogIndex === i ? {...newDog, index: i} : dog)
+          this.dogs$.value.map((dog,i) => dogIndex === i ? {...newDog, index: i, breed: this.getDogBreed(newDog)} : dog)
         )
       })
     ).subscribe();
   }
 
-  fetchDog(): Observable<Dog>{
+  private fetchDog(): Observable<Dog>{
     console.log("fetching a dog...")
     return this.http.get<Dog>(this.dogApiURL);
+  }
+
+  private getDogBreed(apiResponse: Dog) {
+    const dogBreed = /breeds\/([a-z-]+)\//.exec(apiResponse.message)
+    const formattedDogBreed = dogBreed![1].split("-").map((word: string) => {return word[0].toUpperCase() + word.substring(1)}).join(" ");
+    return formattedDogBreed;
   }
 
 }
