@@ -1,0 +1,9 @@
+<p>dog-card works!</p>
+<ul>
+  <li *ngFor="let dog of dogs$ | async">
+    {{ dog.index }}
+    <br>
+    {{ dog.message }}
+  </li>
+</ul>
+<button (click)="changeDog()">Change a dog</button>
