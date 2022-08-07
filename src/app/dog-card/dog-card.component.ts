@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
 import { DogsService, Dog } from '../dogs.service';
-// import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dog-card',
@@ -17,14 +16,12 @@ export class DogCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.dogService.initDogs(9)
+    this.dogService.initDogs(6)
     this.dogs$ = this.dogService.getDogs();
-
-    // this.dogService.fetchDog().subscribe(res => this.testDog = res);
   }
 
-  changeDog() {
-    this.dogService.changeDog(2);
+  changeDog(dogIndex: number) {
+    this.dogService.changeDog(dogIndex);
   }
 
 }
