@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { DogsService, Dog } from '../dogs.service';
 
@@ -20,8 +20,9 @@ export class DogCardComponent implements OnInit {
     this.dogs$ = this.dogService.getDogs();
   }
 
-  changeDog(dogIndex: number) {
+  openDog(dogIndex: number) {
     this.dogService.changeDog(dogIndex);
+    this.dogService.selectDog(dogIndex);
   }
 
 }

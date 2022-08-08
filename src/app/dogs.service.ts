@@ -22,6 +22,8 @@ export class DogsService {
 
   private dogs$ = new BehaviorSubject<Dog[]>([]);
 
+  private selectedDog$ = new BehaviorSubject<Dog|null>(null);
+
   constructor(
     private http: HttpClient
     ) { }
@@ -30,6 +32,19 @@ export class DogsService {
     return this.dogs$;
   }
 
+  public selectDog(dogIndex: number) {
+    console.log("You have selected dog Nr. " + this.dogs$.value[dogIndex].index)
+    this.selectedDog$.next(this.dogs$.value[dogIndex]);
+    console.log(this.selectedDog$.value)
+  }
+  
+  public removeDog() {
+    console.log("Closed dog!")
+    this.selectedDog$.next(null);
+  }
+
+  public getSelectedDog = this.selectedDog$.asObservable();
+
   public initDogs(numberOfDogs: number) :void {
     const dogsToFetch: any = new Array(numberOfDogs).fill(this.fetchDog());
     let dogs: any = [];
@@ -37,14 +52,11 @@ export class DogsService {
       req.subscribe((res: any) => dogs.push({...res, index, breed: this.getDogBreed(res)}))      
     });
     this.dogs$.next(dogs)
-    console.log("These are the starting dogs:", this.dogs$.value)
   }
 
   public changeDog(dogIndex: number) {
-    console.log("changeDog");
     this.fetchDog().pipe(
       tap((newDog) => {
-        console.log("The new dog is", newDog)
         this.dogs$.next(
           this.dogs$.value.map((dog,i) => dogIndex === i ? {...newDog, index: i, breed: this.getDogBreed(newDog)} : dog)
         )

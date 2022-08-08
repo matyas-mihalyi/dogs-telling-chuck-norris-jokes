@@ -1,0 +1,12 @@
+<div class="modal" *ngIf="selectedDog" (click)="blockClosing()">
+  <div class="modal__content-wrapper">
+    <h2 class="modal__title">This {{ selectedDog.breed }} says:</h2>
+    <img [src]="selectedDog.message" [alt]="selectedDog.breed">
+    <div class="modal__text-wrapper">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error adipisci libero inventore illum cumque assumenda nostrum vel, placeat veniam dolore dolores aut asperiores odio porro officia id eaque totam, perferendis ducimus magni. Fugiat possimus dolores sapiente quasi. In hic, beatae, modi nesciunt dignissimos, earum quibusdam dicta eveniet velit porro aperiam.
+      </p>
+    </div>
+    <button type="button" class="button modal__button" (click)="closeModal()">Good boy!</button>
+  </div>
+</div>
