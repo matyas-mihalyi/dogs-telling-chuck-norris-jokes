@@ -1,5 +1,5 @@
-<div class="modal" (click)="blockClosing()">
-  <div class="modal__content-wrapper" @animateModalContent>
+<div class="modal" (click)="blockClosing(); false">
+  <div class="modal__content-wrapper" @animateModalContent (click)="$event.stopPropagation()">
     <h2 class="modal__title">This {{ selectedDog?.breed }} says:</h2>
     <img [src]="selectedDog?.message" [alt]="selectedDog?.breed">
     <div class="modal__text-wrapper">
