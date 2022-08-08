@@ -7,16 +7,26 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class JokesService {
 
-  private apiUrl:string = 'https://api.chucknorris.io/jokes/random';
+  private jokeThemes: string[] = ["animal","dev","fashion","food","history","movie","music","science","travel"]
   
   constructor(
     private http: HttpClient
-  ) { }
-
+    ) { }
+      
+  private getRandomTheme (themes: string[]):string {
+    const randomIndex = Math.floor(Math.random() * ((themes.length - 1) - 0 + 1) + 0);
+    console.log(randomIndex);
+    return themes[randomIndex];
+  }
+  
+  private apiUrl ():string {
+    return `https://api.chucknorris.io/jokes/random?category=${this.getRandomTheme(this.jokeThemes)}`;
+  }
+  
   private joke = new BehaviorSubject<string>("");
   
   private fetchJoke (){
-    this.http.get<ApiResponse>(this.apiUrl).subscribe((res: ApiResponse) => this.joke.next(res.value))
+    this.http.get<ApiResponse>(this.apiUrl()).subscribe((res: ApiResponse) => this.joke.next(res.value))
   }
 
   public getJoke() {
