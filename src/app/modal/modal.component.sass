@@ -5,7 +5,6 @@
   position: fixed
   bottom: 0
   left: 0
-  animation: fade-in 0.35s forwards
 
   .modal__content-wrapper
     position: fixed
@@ -18,7 +17,6 @@
     padding: 2rem
     gap: 2rem
     align-items: center
-    animation: slide-in 0.35s forwards
 
     img
       max-width: 100%
@@ -49,18 +47,3 @@
         max-height: 20vh
         overflow: auto
         font-size: 0.875rem
-
-
-@keyframes slide-in 
-  0% 
-    transform: translateY(100%)
-  
-  100% 
-    transform: translateY(0%)
-
-@keyframes fade-in
-  0%
-    opacity: 0
-  100%
-    opacity: 1
-  

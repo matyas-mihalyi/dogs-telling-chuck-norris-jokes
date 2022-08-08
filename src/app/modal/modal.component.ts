@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DogsService, Dog } from '../dogs.service';
+import { modalContentAnimation } from './modalAnimation';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.sass'],
-  animations: []
+  animations: [ modalContentAnimation ]
 })
 export class ModalComponent implements OnInit {
 
-  public selectedDog: Dog|null = null;
-
-  public modalState: ModalState = 'closed';
+  @Input () selectedDog: Dog|null = null;
 
   constructor( 
     private dogService: DogsService ) { 
@@ -29,25 +28,8 @@ export class ModalComponent implements OnInit {
     // to do
   }
 
-  private applyModalState (selectedDog: Dog|null): void {
-    if (selectedDog === null) {
-      this.modalState = "closed";
-    } else {
-      this.modalState = "open"
-    }
-  }
-  
-  private updateSelectedDog(dog: Dog|null): void {
-    this.selectedDog = dog
-  }
-
   ngOnInit(): void {
-    this.dogService.getSelectedDog.subscribe(dog => {
-      this.updateSelectedDog(dog);
-      this.applyModalState(dog);
-    });
+    console.log("modal init")
   }
 
 }
-
-type ModalState = "open" | "closed";
