@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DogsService, Dog } from '../dogs.service';
+
 import { modalContentAnimation } from './modalAnimation';
+import { DogsService, Dog } from '../dogs.service';
+import { JokesService } from '../jokes.service';
 
 @Component({
   selector: 'app-modal',
@@ -12,8 +14,12 @@ export class ModalComponent implements OnInit {
 
   @Input () selectedDog: Dog|null = null;
 
+  joke: string = "";
+
   constructor( 
-    private dogService: DogsService ) { 
+    private dogService: DogsService,
+    private jokeService: JokesService
+    ) { 
   }
 
   public closeModal ():void {
@@ -30,6 +36,7 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("modal init")
+    this.jokeService.getJoke().subscribe(joke => this.joke = joke)
   }
 
 }
