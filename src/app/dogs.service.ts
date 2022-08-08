@@ -33,13 +33,10 @@ export class DogsService {
   }
 
   public selectDog(dogIndex: number) {
-    console.log("You have selected dog Nr. " + this.dogs$.value[dogIndex].index)
     this.selectedDog$.next(this.dogs$.value[dogIndex]);
-    console.log(this.selectedDog$.value)
   }
   
   public removeDog() {
-    console.log("Closed dog!")
     this.selectedDog$.next(null);
   }
 

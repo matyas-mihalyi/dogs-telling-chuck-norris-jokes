@@ -35,7 +35,6 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("modal init")
     this.jokeService.getJoke().subscribe(joke => this.joke = joke)
   }
 
