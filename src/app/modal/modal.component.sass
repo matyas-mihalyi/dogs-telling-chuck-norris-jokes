@@ -1,3 +1,6 @@
+@import '../mixins'
+@import '../variables'
+
 .modal  
   height: 100vh
   width: 100vw
@@ -6,22 +9,36 @@
   bottom: 0
   left: 0
 
+  @include for-tablet-landscape-up
+    display: flex
+    justify-content: center
+    align-items: center
+
   .modal__content-wrapper
     position: fixed
     bottom: 0
     border-top-left-radius: 0.75rem
     border-top-right-radius: 0.75rem
-    background-color: var(--babyblue-color)
+    background-color: $babyblue-color
     display: flex
     flex-direction: column
     padding: 2rem
     gap: 2rem
     align-items: center
+    width: 100%
+
+    @include for-tablet-landscape-up
+      position: relative
+      max-width: 800px
+      border-radius: 0.75rem
 
     img
       max-width: 100%
       max-height: 30vh
       border-radius: 0.125rem
+
+      @include for-tablet-portrait-up
+        max-height: 50vh
     
     .modal__text-wrapper
       border-radius: 0.5rem
@@ -47,13 +64,27 @@
         max-height: 20vh
         overflow: auto
         font-size: 0.875rem
+        max-width: 40ch
+        
+        &::-webkit-scrollbar
+          width: 0.25rem
+        &::-webkit-scrollbar-thumb 
+          background: #bababa
+          border-radius: 0.125rem
+          z-index: -1
+
 
     .modal__button-wrapper
       width: 100%
       display: flex
       justify-content: space-between
+      max-width: 500px
+
+      @include for-tablet-portrait-up
+        justify-content: space-around
 
       .boy
-        background-color: var(--bluebell-color)
+        @include button-color($bluebell-color)
+
       .girl
-        background-color: var(--pink-color)
+        @include button-color($pink-color)
