@@ -53,13 +53,12 @@ export class DogsService {
   }
 
   private fetchDog(): Observable<Dog>{
-    console.log("fetching a dog...")
     return this.http.get<Dog>(this.dogApiURL);
   }
 
   private getDogBreed(apiResponse: Dog) {
     const dogBreed = /breeds\/([a-z-]+)\//.exec(apiResponse.message)
-    const formattedDogBreed = dogBreed![1].split("-").map((word: string) => {return word[0].toUpperCase() + word.substring(1)}).join(" ");
+    const formattedDogBreed = dogBreed![1].split("-").map((word: string) => {return word[0].toUpperCase() + word.substring(1)}).reverse().join(" ");
     return formattedDogBreed;
   }
 
