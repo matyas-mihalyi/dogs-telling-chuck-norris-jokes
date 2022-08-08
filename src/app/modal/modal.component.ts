@@ -21,7 +21,7 @@ export class ModalComponent implements OnInit {
   }
 
   public blockClosing ():void {
-    window.alert(`Please tell this ${this.selectedDog?.breed} that he's a Good Boy first!`)
+    window.alert(`Please tell this ${this.selectedDog?.breed} that they are a Good Girl or Good Boy first!`)
   }
 
   public animateText () {
