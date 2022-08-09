@@ -43,10 +43,10 @@ export class DogsService {
   public getSelectedDog = this.selectedDog$.asObservable();
 
   public initDogs(numberOfDogs: number) :void {
-    const dogsToFetch: any = new Array(numberOfDogs).fill(this.fetchDog());
-    let dogs: any = [];
-    dogsToFetch.forEach((req: any, index:number) => {
-      req.subscribe((res: any) => dogs.push({...res, index, breed: this.getDogBreed(res)}))      
+    const dogsToFetch: Observable<Dog>[] = new Array(numberOfDogs).fill(this.fetchDog());
+    let dogs: Dog[] = [];
+    dogsToFetch.forEach((req: Observable<Dog>, index:number) => {
+      req.subscribe((res: Dog) => dogs.push({...res, index, breed: this.getDogBreed(res)}))      
     });
     this.dogs$.next(dogs)
   }
