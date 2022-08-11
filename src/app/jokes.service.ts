@@ -23,15 +23,10 @@ export class JokesService {
     return `https://api.chucknorris.io/jokes/random?category=${this.getRandomTheme(this.jokeThemes)}`;
   }
   
-  private joke = new BehaviorSubject<string>("");
-  
-  private fetchJoke (){
-    this.http.get<ApiResponse>(this.apiUrl()).subscribe((res: ApiResponse) => this.joke.next(res.value))
-  }
+  private fetchJoke = () => this.http.get<ApiResponse>(this.apiUrl());
 
   public getJoke() {
-    this.fetchJoke();
-    return this.joke.asObservable();
+    return this.fetchJoke();
   }
 }
 
